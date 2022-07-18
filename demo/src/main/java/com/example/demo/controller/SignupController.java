@@ -3,11 +3,6 @@ package com.example.demo.controller;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.example.demo.domain.model.GroupOrder;
-import com.example.demo.domain.model.SignupForm;
-import com.example.demo.domain.model.User;
-import com.example.demo.domain.service.UserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +11,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.example.demo.domain.model.GroupOrder;
+import com.example.demo.domain.model.SignupForm;
+import com.example.demo.domain.model.User;
+import com.example.demo.domain.service.UserService;
 
 @Controller
 public class SignupController {
@@ -75,6 +75,6 @@ public class SignupController {
       System.out.println("insert失敗");
     }
 
-    return "redirect:/login";
+    return "redirect:/userList";
   }
 }
