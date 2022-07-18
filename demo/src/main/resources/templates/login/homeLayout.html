@@ -38,13 +38,19 @@
             <li class="nav-item" role="presentation">
               <a class="nav-link active" aria-current="page" th:href="@{'/userList'}">
                 <span data-feather="users"></span>
-                ユーザ管理
+                ユーザ一覧
               </a>
             </li>
-            <li class="nav-item" role="presentation" sec:authorize="hasRole('ADMIN')">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" aria-current="page" th:href="@{'/signup'}">
+                <span data-feather="user-plus"></span>
+                ユーザ登録
+              </a>
+            </li>
+            <li class="nav-item" role="presentation">
               <a class="nav-link active" aria-current="page" th:href="@{'/admin'}">
                 <span data-feather="unlock"></span>
-                アドミン管理
+                管理者画面
               </a>
             </li>
           </ul>
