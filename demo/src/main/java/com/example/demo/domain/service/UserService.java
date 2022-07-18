@@ -2,14 +2,13 @@ package com.example.demo.domain.service;
 
 import java.util.List;
 
-import com.example.demo.domain.model.User;
-import com.example.demo.domain.repository.UserMapper;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.example.demo.domain.model.User;
+import com.example.demo.domain.repository.UserMapper;
 
 @Transactional
 @Service
@@ -18,13 +17,7 @@ public class UserService {
   @Autowired
   UserMapper userMapper;
 
-  @Autowired
-  PasswordEncoder passwordEncoder;
-
   public boolean insert(User user) throws DataAccessException {
-
-    user.setPassword(passwordEncoder.encode(user.getPassword()));
-
     return userMapper.insert(user);
   }
 
@@ -37,9 +30,6 @@ public class UserService {
   }
 
   public boolean updateOne(User user) throws DataAccessException {
-
-    user.setPassword(passwordEncoder.encode(user.getPassword()));
-
     return userMapper.updateOne(user);
   }
 
