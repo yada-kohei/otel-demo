@@ -1,0 +1,10 @@
+{
+    "prettier.tabWidth": 4,
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": null,
+    "editor.detectIndentation": false,
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}

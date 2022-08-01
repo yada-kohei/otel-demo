@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class LoginController {
 
-  @GetMapping("/login")
-  public String getLogin(Model model) {
-    return "login/login";
-  }
+    @GetMapping("/login")
+    public String getLogin(Model model) {
+        return "login/login";
+    }
 
-  @PostMapping("/login")
-  public String postLogin(Model model) {
-    return "redirect:/home";
-  }
+    @PostMapping("/login")
+    public String postLogin(Model model) {
+        return "redirect:/home";
+    }
 }

@@ -18,129 +18,129 @@ import com.example.demo.domain.service.UserService;
 
 @Controller
 public class HomeController {
-  
-  @Autowired
-  UserService userService;
 
-  private Map<String, String> radioMarriage;
+    @Autowired
+    UserService userService;
 
-  //ラジオボタン初期化メソッド
-  private Map<String, String> initRadioMarriage() {
+    private Map<String, String> radioMarriage;
 
-    Map<String, String> radio = new LinkedHashMap<>();
+    // ラジオボタン初期化メソッド
+    private Map<String, String> initRadioMarriage() {
 
-    radio.put("既婚", "true");
-    radio.put("未婚", "false");
+        Map<String, String> radio = new LinkedHashMap<>();
 
-    return radio;
-  }
+        radio.put("既婚", "true");
+        radio.put("未婚", "false");
 
-  @GetMapping("/home")
-  public String getHome(Model model) {
-    model.addAttribute("contents", "login/home :: home_contents");
-    return "login/homeLayout";
-  }
-
-  @GetMapping("/userList")
-  public String getUserList(Model model) {
-    
-    // コンテンツ部分にユーザ一覧を表示するための文字列を登録
-    model.addAttribute("contents", "login/userList::userList_contents");
-
-    // ユーザ一覧の生成
-    List<User> userList = userService.selectMany();
-
-    // Modelにユーザリストを登録
-    model.addAttribute("userList", userList);
-
-    // データ件数を取得
-    int count = userService.count();
-    model.addAttribute("userListCount", count);
-
-    return "login/homeLayout";
-  }
-
-  @GetMapping("/userDetail/{id:.+}")
-  public String getUserDetail(@ModelAttribute SignupForm form, Model model, @PathVariable("id") String userId) {
-
-    // ユーザID確認（デバッグ）
-    System.out.println("userId = " + userId);
-
-    // コンテンツ部分にユーザ詳細を表示するための文字列を登録
-    model.addAttribute("contents", "login/userDetail :: userDetail_contents");
-
-    // 結婚ステータス用ラジオボタンの初期化
-    radioMarriage = initRadioMarriage();
-
-    // ラジオボタン用のMapをModelに登録
-    model.addAttribute("radioMarriage", radioMarriage);
-
-    // ユーザIDのチェック
-    if (userId != null && userId.length() > 0) {
-      User user = userService.selectOne(userId);
-
-      form.setUserId(userId);
-      form.setUserName(user.getUserName());
-      form.setBirthday(user.getBirthday());
-      form.setAge(user.getAge());
-      form.setMarriage(user.isMarriage());
-
-      model.addAttribute("signupForm", form);
+        return radio;
     }
 
-    return "login/homeLayout";
-  }
-
-  @PostMapping(value = "/userDetail", params = "update")
-  public String postUserDetailUpdate(@ModelAttribute SignupForm form, Model model) {
-
-    System.out.println("更新ボタンの処理");
-
-    // Userインスタンスの生成
-    User user = new User();
-
-    // フォームクラスをUserクラスに変換
-    user.setUserId(form.getUserId());
-    user.setPassword(form.getPassword());
-    user.setUserName(form.getUserName());
-    user.setBirthday(form.getBirthday());
-    user.setAge(form.getAge());
-    user.setMarriage(form.isMarriage());
-
-    // 更新実行
-    boolean result = userService.updateOne(user);
-
-    if (result == true) {
-      model.addAttribute("result", "更新成功");
-    } else {
-      model.addAttribute("result", "更新失敗");
+    @GetMapping("/home")
+    public String getHome(Model model) {
+        model.addAttribute("contents", "login/home :: home_contents");
+        return "login/homeLayout";
     }
 
-    return getUserList(model);
-  }
+    @GetMapping("/userList")
+    public String getUserList(Model model) {
 
-  @PostMapping(value = "/userDetail", params = "delete")
-  public String postUserDetailDelete(@ModelAttribute SignupForm form, Model model) {
+        // コンテンツ部分にユーザ一覧を表示するための文字列を登録
+        model.addAttribute("contents", "login/userList::userList_contents");
 
-    System.out.println("削除ボタンの処理");
+        // ユーザ一覧の生成
+        List<User> userList = userService.selectMany();
 
-    // 削除実行
-    boolean result = userService.deleteOne(form.getUserId());
+        // Modelにユーザリストを登録
+        model.addAttribute("userList", userList);
 
-    if (result == true) {
-      model.addAttribute("result", "削除成功");
-    } else {
-      model.addAttribute("result", "削除失敗");
+        // データ件数を取得
+        int count = userService.count();
+        model.addAttribute("userListCount", count);
+
+        return "login/homeLayout";
     }
 
-    return getUserList(model);
-  }
+    @GetMapping("/userDetail/{id:.+}")
+    public String getUserDetail(@ModelAttribute SignupForm form, Model model, @PathVariable("id") String userId) {
 
-  @GetMapping("/admin")
-  public String getAdmin(Model model) {
+        // ユーザID確認（デバッグ）
+        System.out.println("userId = " + userId);
 
-    model.addAttribute("contents", "login/admin :: admin_contents");
+        // コンテンツ部分にユーザ詳細を表示するための文字列を登録
+        model.addAttribute("contents", "login/userDetail :: userDetail_contents");
 
-    return "login/homeLayout";
-  }
+        // 結婚ステータス用ラジオボタンの初期化
+        radioMarriage = initRadioMarriage();
+
+        // ラジオボタン用のMapをModelに登録
+        model.addAttribute("radioMarriage", radioMarriage);
+
+        // ユーザIDのチェック
+        if (userId != null && userId.length() > 0) {
+            User user = userService.selectOne(userId);
+
+            form.setUserId(userId);
+            form.setUserName(user.getUserName());
+            form.setBirthday(user.getBirthday());
+            form.setAge(user.getAge());
+            form.setMarriage(user.isMarriage());
+
+            model.addAttribute("signupForm", form);
+        }
+
+        return "login/homeLayout";
+    }
+
+    @PostMapping(value = "/userDetail", params = "update")
+    public String postUserDetailUpdate(@ModelAttribute SignupForm form, Model model) {
+
+        System.out.println("更新ボタンの処理");
+
+        // Userインスタンスの生成
+        User user = new User();
+
+        // フォームクラスをUserクラスに変換
+        user.setUserId(form.getUserId());
+        user.setPassword(form.getPassword());
+        user.setUserName(form.getUserName());
+        user.setBirthday(form.getBirthday());
+        user.setAge(form.getAge());
+        user.setMarriage(form.isMarriage());
+
+        // 更新実行
+        boolean result = userService.updateOne(user);
+
+        if (result == true) {
+            model.addAttribute("result", "更新成功");
+        } else {
+            model.addAttribute("result", "更新失敗");
+        }
+
+        return getUserList(model);
+    }
+
+    @PostMapping(value = "/userDetail", params = "delete")
+    public String postUserDetailDelete(@ModelAttribute SignupForm form, Model model) {
+
+        System.out.println("削除ボタンの処理");
+
+        // 削除実行
+        boolean result = userService.deleteOne(form.getUserId());
+
+        if (result == true) {
+            model.addAttribute("result", "削除成功");
+        } else {
+            model.addAttribute("result", "削除失敗");
+        }
+
+        return getUserList(model);
+    }
+
+    @GetMapping("/admin")
+    public String getAdmin(Model model) {
+
+        model.addAttribute("contents", "login/admin :: admin_contents");
+
+        return "login/homeLayout";
+    }
 }

@@ -8,44 +8,44 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class LogAspect {
-  
-  @Around("execution(* *..*.*Controller.*(..))")
-  public Object startLog(ProceedingJoinPoint jp) throws Throwable {
 
-    System.out.println("メソッド開始：" + jp.getSignature());
+    @Around("execution(* *..*.*Controller.*(..))")
+    public Object startLog(ProceedingJoinPoint jp) throws Throwable {
 
-		try {
-			Object result = jp.proceed();
-			System.out.println("メソッド終了：" + jp.getSignature());
+        System.out.println("メソッド開始：" + jp.getSignature());
 
-			return result;
+        try {
+            Object result = jp.proceed();
+            System.out.println("メソッド終了：" + jp.getSignature());
 
-		} catch (Exception e) {
+            return result;
 
-			System.out.println("メソッド異常終了：" + jp.getSignature());
-			e.printStackTrace();
-			throw e;
-		}
-  }
+        } catch (Exception e) {
 
-	// UserDaoクラスのログ出力
-	@Around("execution(* *..*.*UserMapper.*(..))")
-	public Object daoLog(ProceedingJoinPoint jp) throws Throwable {
+            System.out.println("メソッド異常終了：" + jp.getSignature());
+            e.printStackTrace();
+            throw e;
+        }
+    }
 
-		System.out.println("メソッド開始：" + jp.getSignature());
+    // UserDaoクラスのログ出力
+    @Around("execution(* *..*.*UserMapper.*(..))")
+    public Object daoLog(ProceedingJoinPoint jp) throws Throwable {
 
-		try {
-			Object result = jp.proceed();
-			System.out.println("メソッド終了：" + jp.getSignature());
+        System.out.println("メソッド開始：" + jp.getSignature());
 
-			return result;
+        try {
+            Object result = jp.proceed();
+            System.out.println("メソッド終了：" + jp.getSignature());
 
-		} catch (Exception e) {
+            return result;
 
-			System.out.println("メソッド異常終了：" + jp.getSignature());
-			e.printStackTrace();
-			throw e;
+        } catch (Exception e) {
 
-		}
-	}
+            System.out.println("メソッド異常終了：" + jp.getSignature());
+            e.printStackTrace();
+            throw e;
+
+        }
+    }
 }
