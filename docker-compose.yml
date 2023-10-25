@@ -60,7 +60,7 @@ services:
     ## Jaeger
     jaeger:
         container_name: jaeger
-        image: jaegertracing/all-in-one:latest
+        image: jaegertracing/all-in-one:1.50.0
         ports:
             - "16686:16686"
             - "14268"
@@ -69,14 +69,14 @@ services:
     ## Zipkin
     zipkin:
         container_name: zipkin
-        image: openzipkin/zipkin:latest
+        image: openzipkin/zipkin:2.24.2
         ports:
             - "9411:9411"
 
     ## Prometheus
     prometheus:
         container_name: prometheus
-        image: prom/prometheus:latest
+        image: prom/prometheus:2.45.1 
         volumes:
             - ./prometheus.yaml:/etc/prometheus/prometheus.yaml
         ports:
