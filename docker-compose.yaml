@@ -69,14 +69,14 @@ services:
   ## Zipkin
   zipkin:
     container_name: zipkin
-    image: openzipkin/zipkin:2.24.2
+    image: openzipkin/zipkin:latest
     ports:
       - "9411:9411"
 
   ## Prometheus
   prometheus:
     container_name: prometheus
-    image: prom/prometheus:2.45.1
+    image: prom/prometheus:latest
     volumes:
       - ./prometheus.yaml:/etc/prometheus/prometheus.yaml
     ports:
